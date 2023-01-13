@@ -19,7 +19,6 @@ email:
 description: >- # this means to ignore newlines until "baseurl:"
   Just Do It
 url: https://xiaoshenwei.github.io
-baseurl: /blog
 github_username: xiaoshenwei
 minimal_mistakes_skin: dirt
 search: true
