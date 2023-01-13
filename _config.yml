@@ -13,17 +13,19 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: MM
+locale: zh
+title: xiaosw
 email:
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-twitter_username: username
-github_username: username
-minimal_mistakes_skin: default
+  Just Do It
+url: https://xiaoshenwei.github.io
+baseurl: /blog
+github_username: xiaoshenwei
+minimal_mistakes_skin: dirt
 search: true
 
+repository: xiaoshenwei/xiaoshenwei.github.io
+masthead_title: "我的博客"
 # Build settings
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
@@ -56,11 +58,13 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-github-metadata
 
 author:
-  name   : "First Lastname"
-  avatar : "/assets/images/bio-photo.jpg"
-  bio    : "My awesome biography constrained to a sentence or two goes here."
+  name: "Xiao Shenwei"
+  avatar: "/assets/images/wz.jpg"
+  bio: "Just Do It"
+  location: "Hangzhou China"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
@@ -70,22 +74,19 @@ author:
       url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+      url: "https://github.com/xiaoshenwei"
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/"
+    - label: "stackoverflow"
+      icon: "fab fa-stack-overflow"
+      url: "https://stackoverflow.com/u/19499374"
+    - label: "email"
+      icon: "far fa-envelope"
+      url: "mailto:xiaoshenwei96@163.com"
 
 defaults:
   # _posts
@@ -97,7 +98,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
+      share: false
       related: true
   # _pages
   - scope:
@@ -113,3 +114,10 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
+comments:
+  provider: "utterances"
+  utterances:
+    theme: "github-light" # "github-dark"
+    issue_term: "pathname"
+    label: "comment" # Optional - must be existing label.
