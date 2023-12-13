@@ -14,10 +14,10 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 locale: zh
-title: xiaosw
-email:
+title: "xsw"
+email: xiaoshenwei96@163.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Just Do It
+  Hello World!
 url: https://xiaoshenwei.github.io
 github_username: xiaoshenwei
 minimal_mistakes_skin: dirt
@@ -33,6 +33,7 @@ permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+breadcrumbs: true  # disabled by default
 
 include:
   - _pages
@@ -62,24 +63,21 @@ plugins:
 author:
   name: "Xiao Shenwei"
   avatar: "/assets/images/wz.jpg"
-  bio: "Just Do It"
+  bio: "Hello World"
   location: "Hangzhou China"
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/xiaoshenwei"
+    - label: "email"
+      icon: "far fa-envelope"
+      url: "mailto:xiaoshenwei96@163.com"
 
 footer:
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
+      url: "https://github.com/xiaoshenwei"
     - label: "stackoverflow"
       icon: "fab fa-stack-overflow"
       url: "https://stackoverflow.com/u/19499374"
