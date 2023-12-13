@@ -20,9 +20,28 @@ global:
   # not include EndsAt, after this time passes it can declare the alert as resolved if it has not been updated.
   # This has no impact on alerts from Prometheus, as they always include EndsAt.
   [ resolve_timeout: <duration> | default = 5m ]
+  
+router:
+  # How long to initially wait to send a notification for a group
+  # of alerts. Allows to wait for an inhibiting alert to arrive or collect
+  # more initial alerts for the same group. (Usually ~0s to few minutes.)
+  [ group_wait: <duration> | default = 30s ]
+
+  # How long to wait before sending a notification about new alerts that
+  # are added to a group of alerts for which an initial notification has
+  # already been sent. (Usually ~5m or more.)
+  [ group_interval: <duration> | default = 5m ]
+
+  # How long to wait before sending a notification again if it has already
+  # been sent successfully for an alert. (Usually ~3h or more).
+  # Note that this parameter is implicitly bound by Alertmanager's
+  # `--data.retention` configuration flag. Notifications will be resent after either
+  # repeat_interval or the data retention period have passed, whichever
+  # occurs first. `repeat_interval` should not be less than `group_interval`.
+  [ repeat_interval: <duration> | default = 4h ]
 ```
 
-## ResolveTimeout
+## resolve_timeout
 
 问题:
 
@@ -41,5 +60,10 @@ resolve_timeout 默认值是5m，超过5m 会自动判断此告警已恢复
 resolve_timeout: 1d
 ```
 
+## group_wait
 
-  
+# 注意
+## duration 类型值
+
+[类型要求](https://prometheus.io/docs/alerting/latest/configuration/#duration)
+[校验规则](https://github.com/prometheus/common/blob/main/model/time.go#L204)
