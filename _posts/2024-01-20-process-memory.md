@@ -50,9 +50,9 @@ rss       the real memory (resident set) size of the process (in 1024 byte units
 ps aux | awk '{sum+=$6} END {print sum " Kb"}'
 ```
 
-由于Rss 包含程序所使用的共享内存，因此使用此指标会导致共享部分被重复计算。
-
 {: .notice}
+
+由于Rss 包含程序所使用的共享内存，因此使用此指标会导致共享部分被重复计算。
 
 # 进程是如何申请内存的？
 
