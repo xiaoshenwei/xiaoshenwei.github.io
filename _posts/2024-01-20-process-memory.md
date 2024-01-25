@@ -44,10 +44,15 @@ VmRSS:       70864 kB
 
 # RSS 是什么？
 
-resident set size, the non-swapped physical memory that a task has used (in kilobytes).
-Resident Set Size（常驻集大小）是指一个任务已使用的非交换物理内存大小（以千字节为单位）。
+rss       the real memory (resident set) size of the process (in 1024 byte units).
 
+```bash
+ps aux | awk '{sum+=$6} END {print sum " Kb"}'
+```
 
+由于Rss 包含程序所使用的共享内存，因此使用此指标会导致共享部分被重复计算。
+
+{: .notice}
 
 # 进程是如何申请内存的？
 
@@ -71,9 +76,12 @@ Resident Set Size（常驻集大小）是指一个任务已使用的非交换物
 
 ![](https://raw.githubusercontent.com/xiaoshenwei/xiaoshenwei.github.io/master/assets/images/memory-free-v1.png)
 
-
-
 ## 单进程内存统计？
+
+进程资源存储类型如下：
+
+- Anonymous（匿名页）：程序自行使用的堆栈空间，在磁盘上没有对应文件。
+- File-backed（文件页）：资源存放在磁盘文件中，文件内包含代码段、字体信息等内容。
 
 ```bash
 00400000-00401000 r--p 00000000 00:147 14824848                          /pause
@@ -108,8 +116,6 @@ VmFlags: rd mr mw me sd
 
 ![](https://raw.githubusercontent.com/xiaoshenwei/xiaoshenwei.github.io/master/assets/images/p623795.png)https://elixir.bootlin.com/linux/v4.4/source/fs/proc/task_mmu.c#L440
 
-
-
 # 问题
 
 通过Pss 计算的全部进程的大小与free used 大小差距很大， 为什么？
@@ -120,8 +126,6 @@ used Used memory (calculated as total - free - buffers - cache)
 cat /proc/meminfo | egrep "AnonPages|Mapped"
 ```
 
-
-
 # 相关文献
 
 [4.1 为什么要有虚拟内存？ | 小林coding](https://www.xiaolincoding.com/os/3_memory/vmem.html#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98)
@@ -131,5 +135,3 @@ cat /proc/meminfo | egrep "AnonPages|Mapped"
 [The /proc Filesystem — The Linux Kernel documentation](https://www.kernel.org/doc/html/latest/filesystems/proc.html?highlight=Pss)
 
 [【Linux】/proc/meminfo 解析 - aalanwyr - 博客园](https://www.cnblogs.com/aalan/p/17026258.html)
-
-
