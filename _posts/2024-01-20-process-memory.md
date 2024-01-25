@@ -128,10 +128,12 @@ cat /proc/meminfo | egrep "AnonPages|Mapped"
 
 # 相关文献
 
-[4.1 为什么要有虚拟内存？ | 小林coding](https://www.xiaolincoding.com/os/3_memory/vmem.html#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98)
+[为什么要有虚拟内存](https://www.xiaolincoding.com/os/3_memory/vmem.html#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98)
 
-[常用的内存查询命令/指标的含义是什么_应用实时监控服务(ARMS)-阿里云帮助中心](https://help.aliyun.com/zh/arms/application-monitoring/memory-metrics)
+[常用的内存查询命令/指标的含义是什么](https://help.aliyun.com/zh/arms/application-monitoring/memory-metrics)
 
 [The /proc Filesystem — The Linux Kernel documentation](https://www.kernel.org/doc/html/latest/filesystems/proc.html?highlight=Pss)
 
-[【Linux】/proc/meminfo 解析 - aalanwyr - 博客园](https://www.cnblogs.com/aalan/p/17026258.html)
+[【Linux】/proc/meminfo](https://www.cnblogs.com/aalan/p/17026258.html)
+
+
