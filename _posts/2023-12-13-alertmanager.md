@@ -20,7 +20,7 @@ global:
   # not include EndsAt, after this time passes it can declare the alert as resolved if it has not been updated.
   # This has no impact on alerts from Prometheus, as they always include EndsAt.
   [ resolve_timeout: <duration> | default = 5m ]
-  
+
 router:
   # How long to initially wait to send a notification for a group
   # of alerts. Allows to wait for an inhibiting alert to arrive or collect
@@ -56,6 +56,7 @@ resolve_timeout 默认值是5m，超过5m 会自动判断此告警已恢复
 解决方式：
 
 如果想要禁用 AlertManager 自动 Resolved 的功能:
+
 ```yaml
 resolve_timeout: 1d
 ```
@@ -63,6 +64,7 @@ resolve_timeout: 1d
 ## group_wait
 
 # 注意
+
 ## duration 类型值
 
 [类型要求](https://prometheus.io/docs/alerting/latest/configuration/#duration)
