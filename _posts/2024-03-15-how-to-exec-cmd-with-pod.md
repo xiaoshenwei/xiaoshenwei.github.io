@@ -10,11 +10,16 @@ tags:
 # 痛点
 
     研发经常来找，生产环境java进程使用了多少内存？与某个域名网络通不通啊？帮我执行下jmap? 帮我执行下jstack ? ...
-    
+
 # 分析
 
     使用k8s API 实现一种类似web-terminal的效果， 允许研发执行 白名单内的命令 进而在pod内进行一定范围的debug.
-    
+
+# 关键字
+
+- connect_get_namespaced_pod_exec
+- xterm.js
+
 # 方案
 
 后端: wesocket + django
@@ -129,7 +134,7 @@ class K8sPodTerminalConsumer(WebsocketConsumer):
             self.send(text_data=json.dumps({"stderr": "Please login first"}))
             self.disconnect(1)
             return
-				# 是否为空
+        # 是否为空
         if not text_data:
             self.send(text_data=json.dumps({"stdout": "\n"}))
             return
@@ -325,5 +330,4 @@ onBeforeMount(() => {
 </style>
 
 ```
-
 
