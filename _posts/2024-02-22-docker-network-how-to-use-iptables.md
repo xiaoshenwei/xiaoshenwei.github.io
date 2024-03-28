@@ -360,7 +360,6 @@ RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 ```shell
 # iptables -I DOCKER-USER -i ext_if ! -s 192.168.1.0/24 -j DROP
 iptables -I DOCKER-USER -i eth0 ! -s 192.168.204.99  -j DROP
-iptables -t filter -D DOCKER-USER 1
 ```
 
 https://docs.docker.com/network/packet-filtering-firewalls/#restrict-connections-to-the-docker-host
