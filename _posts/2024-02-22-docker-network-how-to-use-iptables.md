@@ -13,6 +13,10 @@ tags:
 
   云服务器上(绑定了公网IP), 使用docker部署服务时, 使用了docker -p 80:80, 部署完成后, 接口日志发现一些奇奇怪怪的请求路径，突然意识到服务被恶意扫描了。我没有操作iptables公开这个端口啊。这是怎么回事呢？
 
+# 问题:
+
+**如果你的 Docker 运行在公网，或者你希望避免 Docker 中容器被局域网内的其他客户端访问**
+
 # Iptables 入门
 
 ![https://raw.githubusercontent.com/xiaoshenwei/xiaoshenwei.github.io/master/assets/images/5cf36899c47eb56912.png](https://raw.githubusercontent.com/xiaoshenwei/xiaoshenwei.github.io/master/assets/images/5cf36899c47eb56912.png)
@@ -82,6 +86,41 @@ iptables -t filter -nL
 
 网络管理员还可以使用 iptables 创建自定义的“链”，将针对某个应用层序所设置的规则放到这个自定义“链”中，但是自定义的“链”不能直接使用，只能被某个默认的“链”当作处理动作 action 去调用。可以这样说，自定义链是“短”链，这些“短”链并不能直接使用，而是需要和 iptables上 的内置链一起配合，被内置链“引用”。
 
+## 规则
+规则：根据指定的匹配条件来尝试匹配每个流经此处的报文，一旦匹配成功，则由规则后面指定的处理动作进行处理
+
+### 匹配条件
+
+- 源 ip:port
+- 目的 ip: port
+- 协议类型
+- 网卡接口
+- ......
+
+### 处理动作
+- ACCEPT：允许数据包通过。
+
+- DROP：直接丢弃数据包，不给任何回应信息，这时候客户端会感觉自己的请求泥牛入海了，过了超时时间才会有反应。
+
+- REJECT：拒绝数据包通过，必要时会给数据发送端一个响应的信息，客户端刚请求就会收到拒绝的信息。
+
+- SNAT：源地址转换，解决内网用户用同一个公网地址上网的问题。
+
+- MASQUERADE：是SNAT的一种特殊形式，适用于动态的、临时会变的ip上。
+
+- DNAT：目标地址转换。
+
+- REDIRECT：在本机做端口映射。
+
+- LOG：在/var/log/messages文件中记录日志信息，然后将数据包传递给下一条规则，也就是说除了记录以外不对数据包做任何其他操作，仍然让下一条规则去匹配。
+
+- ......
+
+### 更多
+```shell
+man iptables-extensions
+```
+
 # 安装docker 后iptables是什么样子的？
 
 ```shell
@@ -135,6 +174,8 @@ RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 Chain L (0 references)
 target     prot opt source               destination
 ```
+
+
 
 ```shell
 root@d1:~# iptables -t filter -nL
@@ -236,6 +277,8 @@ target     prot opt source               destination
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 ```
 
+iptables 并没有什么变化。
+
 # 启动一个docker -p 80:80
 
 ```shell
@@ -265,6 +308,12 @@ target     prot opt source               destination
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:172.17.0.2:80
 ```
+
+1. 数据经过prerouting表， 由于raw, mangle 为空, 直接查看nat 的 prerouting 链
+2. src: 0.0.0.0/0  dst 0.0.0.0/0  表示所有访问本机的数据都匹配DOCKER链
+3. DOCKER 链中有DNAT 规则， 将访问宿主机 各类端口的数据转发到各个容器中。
+
+
 
 ```shell
 root@d3:~# iptables -t filter -nL
@@ -302,3 +351,40 @@ target     prot opt source               destination
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0
 ```
 
+# 答案
+
+## DOCKER-USER 链
+
+以下规则仅允许来自子网的访问`192.168.1.0/24`：
+
+```shell
+# iptables -I DOCKER-USER -i ext_if ! -s 192.168.1.0/24 -j DROP
+iptables -I DOCKER-USER -i eth0 ! -s 192.168.204.99  -j DROP
+iptables -t filter -D DOCKER-USER 1
+```
+
+https://docs.docker.com/network/packet-filtering-firewalls/#restrict-connections-to-the-docker-host
+
+为什么DOCKER-USER链中的规则不影响宿主机？
+
+## Docker -p
+
+```shell
+docker run -p 127.0.0.1:8080:80 nginx
+```
+
+```shell
+   0     0 DNAT       tcp  --  !docker0 *       0.0.0.0/0            127.0.0.1            tcp dpt:8081 to:172.17.0.3:8081
+```
+
+https://docs.docker.com/network/#published-ports
+
+# 参考
+
+https://docker-docs.uclv.cu/network/iptables/
+
+https://www.zsythink.net/archives/1199
+
+https://docs.docker.com/network/packet-filtering-firewalls/
+
+[容器网络与Iptables](https://moelove.info/2022/12/12/%E8%81%8A%E8%81%8A%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-iptables/)
