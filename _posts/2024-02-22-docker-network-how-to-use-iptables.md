@@ -366,6 +366,8 @@ https://docs.docker.com/network/packet-filtering-firewalls/#restrict-connections
 
 为什么DOCKER-USER链中的规则不影响宿主机？
 
+宿主机的流量不走forward 链。
+
 ## Docker -p
 
 ```shell

@@ -135,5 +135,3 @@ cat /proc/meminfo | egrep "AnonPages|Mapped"
 [The /proc Filesystem — The Linux Kernel documentation](https://www.kernel.org/doc/html/latest/filesystems/proc.html?highlight=Pss)
 
 [【Linux】/proc/meminfo](https://www.cnblogs.com/aalan/p/17026258.html)
-
-
