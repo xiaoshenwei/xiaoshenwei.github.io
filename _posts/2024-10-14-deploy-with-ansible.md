@@ -378,6 +378,6 @@ socks 代理安全加固
 socks 代理服务器 设置 authorized_keys
 
 ```
-restrict,port-forwarding,permitopen="*:22",permitopen="*:7249",permitopen="*:80",command="true" ssh-rsa xxx user@host
+restrict,port-forwarding,permitopen="*:22",permitopen="*:80",command="true" ssh-rsa xxx user@host
 ```
 
