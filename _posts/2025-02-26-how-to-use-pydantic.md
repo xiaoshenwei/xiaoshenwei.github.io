@@ -911,8 +911,6 @@ print(user)
 
 ## Validation context
 
-https://gitlab.dxy.net/dev-ops/friday/django-cmdb/-/blob/master/cmdb/application/serializer.py#L46
-
 您可以将上下文对象传递到[验证方法](https://docs.pydantic.dev/latest/concepts/models/#validating-data)，可以使用[`context`](https://docs.pydantic.dev/latest/api/pydantic_core_schema/#pydantic_core.core_schema.ValidationInfo.context)属性在验证器函数中访问该方法
 
 ``` python
