@@ -1,3 +1,8 @@
+---
+toc: true
+classes: wide
+---
+
 # 大模型助力日志分析
 
 <img src="https://raw.githubusercontent.com/xiaoshenwei/xiaoshenwei.github.io/master/assets/images/logai.png" style="zoom:60%;" />
