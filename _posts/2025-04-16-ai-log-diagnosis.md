@@ -69,7 +69,7 @@ from langchain_core.prompts import ChatPromptTemplate
 llm = init_chat_model(
     "qwen2.5:7b",
     model_provider="ollama",
-    base_url="http://ollama-api.k8s-test.uc.host.dxy"
+    base_url="http://ollama-api"
 )
 
 prompt_template = """
@@ -144,7 +144,7 @@ from langchain.chat_models import init_chat_model
 llm = init_chat_model(
     "qwen2.5:7b",
     model_provider="ollama",
-    base_url="http://ollama-api.k8s-test.uc.host.dxy"
+    base_url="http://ollama-api"
 )
 
 def chatbot(state: State):
@@ -484,7 +484,7 @@ from langchain.chat_models import init_chat_model
 model = init_chat_model(
     "qwen2.5:7b",
     model_provider="ollama",
-    base_url="http://ollama-api.k8s-test.uc.host.dxy"
+    base_url="http://ollama-api"
 )
 
 # 定义主流程状态结构
